@@ -23,6 +23,7 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
@@ -65,6 +66,27 @@ public class MainActivity extends Activity {
      * @param id The ID of the notification to create
      * @param title The title of the notification
      */
+    public void loopAnHour(int id, Notification.Builder nb, int offset){
+        if(nb == null){
+            return;
+        }
+        class Tmp implements Runnable {
+            int id;
+            Notification.Builder nb;
+            Tmp(int id, Notification.Builder nb){
+                this.id = id;
+                this.nb = nb;
+            }
+            @Override
+            public void run() {
+                noti.notify(id, nb);
+            }
+        }
+        Handler handler = new Handler();
+        for(int i = 0;i<3600;i++){
+            handler.postDelayed(new Tmp(id, nb), 1800*i+offset);
+        }
+    }
     public void sendNotification(int id, String title) {
         Notification.Builder nb = null;
         switch (id) {
@@ -85,7 +107,7 @@ public class MainActivity extends Activity {
                 break;
         }
         if (nb != null) {
-            noti.notify(id, nb);
+            loopAnHour(id, nb, 0);
         }
     }
 
