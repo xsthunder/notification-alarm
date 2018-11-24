@@ -108,17 +108,17 @@ public class MainActivity extends Activity {
                 nb = noti.getNotification1(title, getString(R.string.primary1_body));
                 break;
 
-            case NOTI_PRIMARY2:
-                nb = noti.getNotification1(title, getString(R.string.primary2_body));
-                break;
-
-            case NOTI_SECONDARY1:
-                nb = noti.getNotification2(title, getString(R.string.secondary1_body));
-                break;
-
-            case NOTI_SECONDARY2:
-                nb = noti.getNotification2(title, getString(R.string.secondary2_body));
-                break;
+//            case NOTI_PRIMARY2:
+//                nb = noti.getNotification1(title, getString(R.string.primary2_body));
+//                break;
+//
+//            case NOTI_SECONDARY1:
+//                nb = noti.getNotification2(title, getString(R.string.secondary1_body));
+//                break;
+//
+//            case NOTI_SECONDARY2:
+//                nb = noti.getNotification2(title, getString(R.string.secondary2_body));
+//                break;
         }
         if (nb != null) {
             loopAnHour(id, nb, offset);
@@ -151,25 +151,25 @@ public class MainActivity extends Activity {
      * seperate.)
      */
     class MainUi implements View.OnClickListener {
-        final TextView titlePrimary;
-        final TextView titleSecondary;
+//        final TextView titlePrimary;
+//        final TextView titleSecondary;
         final TextView hour;
         final TextView minute;
 
         private MainUi(View root) {
-            titlePrimary = (TextView) root.findViewById(R.id.hour);
+//            titlePrimary = (TextView) root.findViewById(R.id.hour);
             hour = (TextView) root.findViewById(R.id.hour);
             minute = (TextView) root.findViewById(R.id.minute);
-            ((Button) root.findViewById(R.id.main_primary_send1)).setOnClickListener(this);
-            ((Button) root.findViewById(R.id.main_primary_send2)).setOnClickListener(this);
-            ((ImageButton) root.findViewById(R.id.main_primary_config)).setOnClickListener(this);
+            ((ImageButton) root.findViewById(R.id.main_primary_send1)).setOnClickListener(this);
+//            ((Button) root.findViewById(R.id.main_primary_send2)).setOnClickListener(this);
+//            ((ImageButton) root.findViewById(R.id.main_primary_config)).setOnClickListener(this);
+//
+//            titleSecondary = (TextView) root.findViewById(R.id.main_secondary_title);
+//            ((Button) root.findViewById(R.id.main_secondary_send1)).setOnClickListener(this);
+//            ((Button) root.findViewById(R.id.main_secondary_send2)).setOnClickListener(this);
+//            ((ImageButton) root.findViewById(R.id.main_secondary_config)).setOnClickListener(this);
 
-            titleSecondary = (TextView) root.findViewById(R.id.main_secondary_title);
-            ((Button) root.findViewById(R.id.main_secondary_send1)).setOnClickListener(this);
-            ((Button) root.findViewById(R.id.main_secondary_send2)).setOnClickListener(this);
-            ((ImageButton) root.findViewById(R.id.main_secondary_config)).setOnClickListener(this);
-
-            ((Button) root.findViewById(R.id.btnA)).setOnClickListener(this);
+//            ((Button) root.findViewById(R.id.btnA)).setOnClickListener(this);
         }
 
         private String getHourText() {
@@ -187,12 +187,6 @@ public class MainActivity extends Activity {
             return "";
         }
 
-        private String getTitleSecondaryText() {
-            if (titlePrimary != null) {
-                return titleSecondary.getText().toString();
-            }
-            return "";
-        }
 
         @Override
         public void onClick(View view) {
