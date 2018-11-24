@@ -18,10 +18,7 @@ package com.example.android.notificationchannels;
 
 import android.app.Activity;
 import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -64,7 +61,7 @@ public class MainActivity extends Activity {
      * Send activity notifications.
      *
      * @param id The ID of the notification to create
-     * @param title The title of the notification
+     * @param offset The offset in second for notification
      */
     public void loopAnHour(int id, Notification.Builder nb, int offset){
         if(nb == null){
@@ -84,11 +81,28 @@ public class MainActivity extends Activity {
         }
         Handler handler = new Handler();
         for(int i = 0;i<3600;i++){
-            handler.postDelayed(new Tmp(id, nb), 1800*i+offset);
+            handler.postDelayed(new Tmp(id, nb), 1800*i+offset*1000);
         }
     }
-    public void sendNotification(int id, String title) {
+    public int getCurrentTimeOffsetInSecond(String hourText, String minuteText){
+
+        int hour = Integer.parseInt(hourText);
+        int minute = Integer.parseInt(minuteText);
+
+        int offset = hour * 60 * 60 + minute * 60;
+
+
         Notification.Builder nb = null;
+        final String title = "Wake up!";
+        final String contentString = String.format("read %d:%d After %d seconds",hour, minute, offset );
+        nb = noti.getNotification1(title, contentString);
+        Log.d(TAG, String.format("getCurrentTimeOffsetInSecond: %s",contentString));
+        noti.notify(NOTI_PRIMARY1, nb);
+        return offset;
+    }
+    public void sendNotification(int id, int offset) {
+        Notification.Builder nb = null;
+        final String title = "Wake up!";
         switch (id) {
             case NOTI_PRIMARY1:
                 nb = noti.getNotification1(title, getString(R.string.primary1_body));
@@ -107,7 +121,7 @@ public class MainActivity extends Activity {
                 break;
         }
         if (nb != null) {
-            loopAnHour(id, nb, 0);
+            loopAnHour(id, nb, offset);
         }
     }
 
@@ -139,9 +153,13 @@ public class MainActivity extends Activity {
     class MainUi implements View.OnClickListener {
         final TextView titlePrimary;
         final TextView titleSecondary;
+        final TextView hour;
+        final TextView minute;
 
         private MainUi(View root) {
-            titlePrimary = (TextView) root.findViewById(R.id.main_primary_title);
+            titlePrimary = (TextView) root.findViewById(R.id.hour);
+            hour = (TextView) root.findViewById(R.id.hour);
+            minute = (TextView) root.findViewById(R.id.minute);
             ((Button) root.findViewById(R.id.main_primary_send1)).setOnClickListener(this);
             ((Button) root.findViewById(R.id.main_primary_send2)).setOnClickListener(this);
             ((ImageButton) root.findViewById(R.id.main_primary_config)).setOnClickListener(this);
@@ -154,9 +172,17 @@ public class MainActivity extends Activity {
             ((Button) root.findViewById(R.id.btnA)).setOnClickListener(this);
         }
 
-        private String getTitlePrimaryText() {
-            if (titlePrimary != null) {
-                return titlePrimary.getText().toString();
+        private String getHourText() {
+            if (hour != null) {
+                return hour.getText().toString();
+            }
+            return "";
+        }
+
+
+        private String getMinuteText() {
+            if (minute != null) {
+                return minute.getText().toString();
             }
             return "";
         }
@@ -172,27 +198,27 @@ public class MainActivity extends Activity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.main_primary_send1:
-                    sendNotification(NOTI_PRIMARY1, getTitlePrimaryText());
+                    sendNotification(NOTI_PRIMARY1, getCurrentTimeOffsetInSecond(getHourText(), getMinuteText()));
                     break;
-                case R.id.main_primary_send2:
-                    sendNotification(NOTI_PRIMARY2, getTitlePrimaryText());
-                    break;
-                case R.id.main_primary_config:
-                    goToNotificationSettings(NotificationHelper.PRIMARY_CHANNEL);
-                    break;
+//                case R.id.main_primary_send2:
+//                    sendNotification(NOTI_PRIMARY2, getCurrentTimeOffsetInSecond());
+//                    break;
+//                case R.id.main_primary_config:
+//                    goToNotificationSettings(NotificationHelper.PRIMARY_CHANNEL);
+//                    break;
 
-                case R.id.main_secondary_send1:
-                    sendNotification(NOTI_SECONDARY1, getTitleSecondaryText());
-                    break;
-                case R.id.main_secondary_send2:
-                    sendNotification(NOTI_SECONDARY2, getTitleSecondaryText());
-                    break;
-                case R.id.main_secondary_config:
-                    goToNotificationSettings(NotificationHelper.SECONDARY_CHANNEL);
-                    break;
-                case R.id.btnA:
-                    goToNotificationSettings();
-                    break;
+//                case R.id.main_secondary_send1:
+//                    sendNotification(NOTI_SECONDARY1, getTitleSecondaryText());
+//                    break;
+//                case R.id.main_secondary_send2:
+//                    sendNotification(NOTI_SECONDARY2, getTitleSecondaryText());
+//                    break;
+//                case R.id.main_secondary_config:
+//                    goToNotificationSettings(NotificationHelper.SECONDARY_CHANNEL);
+//                    break;
+//                case R.id.btnA:
+//                    goToNotificationSettings();
+//                    break;
                 default:
                     Log.e(TAG, "Unknown click event.");
                     break;

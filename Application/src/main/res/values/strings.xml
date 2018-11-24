@@ -7,14 +7,20 @@
     <string name="main_create_noti2_btn">Send</string>
 
     <string name="btnA_title">Go to Settings</string>
-    <string name="noti_channel_default">Primary Channel</string>
+    <string name="noti_channel_default">8:00</string>
     <string name="noti1_title">Notification 1 Title</string>
     <string name="primary1_body">The content</string>
     <string name="noti2_title">Second notification</string>
     <string name="secondary1_body">Notification body text.</string>
     <string name="noti_channel_second">Secondary Channel</string>
 
-    <string name="main_primary_title">Primary Channel</string>
+    <string name="hour_hint">0~23</string>
+    <string name="hour">0</string>
+
+    <string name="minute_hint">0~59</string>
+    <string name="minute">0</string>
+
+    <string name="main_primary_title">8:00</string>
     <string name="main_primary_send1">Send 1</string>
     <string name="main_primary_send2">Send 2</string>
     <string name="main_primary_config">Go to primary settings</string>

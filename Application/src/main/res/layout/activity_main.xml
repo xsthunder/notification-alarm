@@ -19,13 +19,22 @@ F
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/main_primary_title"
-            android:layout_width="match_parent"
+            android:id="@+id/hour"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_columnSpan="2"
+            android:layout_columnSpan="1"
             android:layout_gravity="fill_horizontal"
-            android:hint="@string/main_primary_title"
-            android:text="@string/main_primary_title" />
+            android:hint="@string/hour_hint"
+            android:text="@string/hour" />
+
+        <EditText
+            android:id="@+id/minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill_horizontal"
+            android:hint="@string/minute_hint"
+            android:text="@string/minute" />
 
         <Button
             android:id="@+id/main_primary_send1"
