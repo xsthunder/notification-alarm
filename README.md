@@ -6,9 +6,20 @@ Introduction
 
 forked from [Android NotificationChannels Sample](https://github.com/googlesamples/android-NotificationChannels/)
 
-repeatedly push notification after a period of time.
+repeatedly push notification after a period of time.replace Mi Band Alarm
 
-replace Mi Band Alarm
+mi band3，闹铃只震15下，能不能醒全靠运气。通过设定一段时间后重复发通知的方式来使手环震动，目前是规定时间过后每8秒发一次通知。
+
+Download
+----------
+see [release](https://github.com/xsthunder/notification-alarm/releases) compatible with Android 8.0 or 8.1
+
+Usage
+---------
+1. 设置后台常驻和app alert。
+2. 两个框设置多少小时，多少分钟后开始闹铃。
+3. 点一下按钮设置闹铃。
+4. 有闹铃的情况下点一下按钮停止闹铃。
 
 
 Pre-requisites
