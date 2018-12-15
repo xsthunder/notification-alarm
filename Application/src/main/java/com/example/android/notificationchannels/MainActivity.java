@@ -18,13 +18,10 @@ package com.example.android.notificationchannels;
 
 import android.app.Activity;
 import android.app.Notification;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -35,9 +32,6 @@ public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final int NOTI_PRIMARY1 = 1100;
-    private static final int NOTI_PRIMARY2 = 1101;
-    private static final int NOTI_SECONDARY1 = 1200;
-    private static final int NOTI_SECONDARY2 = 1201;
 
     /*
      * A view model for interacting with the UI elements.
@@ -59,29 +53,39 @@ public class MainActivity extends Activity {
 
     /**
      * Send activity notifications.
-     *
-     * @param id The ID of the notification to create
-     * @param offset The offset in second for notification
      */
-    public void loopAnHour(int id, Notification.Builder nb, int offset){
-        if(nb == null){
-            return;
-        }
+    public void recursiveNotify( int offset){
         class Tmp implements Runnable {
-            int id;
-            Notification.Builder nb;
-            Tmp(int id, Notification.Builder nb){
-                this.id = id;
-                this.nb = nb;
+            int counter;
+
+            Tmp(int counter) {
+                this.counter = counter;
             }
+
             @Override
             public void run() {
-                noti.notify(id, nb);
+                int delay = 8000;
+                int second = this.counter*delay/1000;
+                int minute = second/60;
+                second = second%60;
+                String content = "after ";
+                if(minute>0){
+                    content = String.format("%s%d minute%s ", content, minute, minute==1?"":"s");
+                }
+                content = String.format("%s%d second%s", content , second, second==1?"":"s");
+                Notification.Builder nb = noti.getNotification1("wake up!", content);
+                if(nb == null)return ;
+                noti.notify(NOTI_PRIMARY1, nb);
+                Handler handler = new Handler();
+                handler.postDelayed(new Tmp(this.counter+1), delay);
+                Log.d(TAG, "run: zjj: in recursive");
+
             }
         }
-        Handler handler = new Handler();
-        for(int i = 0;i<3600;i++){
-            handler.postDelayed(new Tmp(id, nb), 1800*i+offset*1000);
+        if(offset>=0){
+            Handler handler = new Handler();
+            int os = offset*1000;
+            handler.postDelayed(new Tmp(0),os );
         }
     }
     public int getCurrentTimeOffsetInSecond(String hourText, String minuteText){
@@ -91,59 +95,21 @@ public class MainActivity extends Activity {
 
         int offset = hour * 60 * 60 + minute * 60;
 
-
         Notification.Builder nb = null;
         final String title = "Wake up!";
-        final String contentString = String.format("read %d:%d After %d seconds",hour, minute, offset );
+        final String contentString = String.format("zjj read %d:%d, After %d seconds",hour, minute, offset );
         nb = noti.getNotification1(title, contentString);
-        Log.d(TAG, String.format("getCurrentTimeOffsetInSecond: %s",contentString));
+        Log.d(TAG, String.format("zjj getCurrentTimeOffsetInSecond: %s",contentString));
         noti.notify(NOTI_PRIMARY1, nb);
         return offset;
     }
-    public void sendNotification(int id, int offset) {
+    public void sendNotification(int offset) {
         Notification.Builder nb = null;
         final String title = "Wake up!";
-        switch (id) {
-            case NOTI_PRIMARY1:
-                nb = noti.getNotification1(title, getString(R.string.primary1_body));
-                break;
-
-//            case NOTI_PRIMARY2:
-//                nb = noti.getNotification1(title, getString(R.string.primary2_body));
-//                break;
-//
-//            case NOTI_SECONDARY1:
-//                nb = noti.getNotification2(title, getString(R.string.secondary1_body));
-//                break;
-//
-//            case NOTI_SECONDARY2:
-//                nb = noti.getNotification2(title, getString(R.string.secondary2_body));
-//                break;
-        }
-        if (nb != null) {
-            loopAnHour(id, nb, offset);
-        }
-    }
-
-    /**
-     * Send Intent to load system Notification Settings for this app.
-     */
-    public void goToNotificationSettings() {
-        Intent i = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-        i.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
-        startActivity(i);
-    }
-
-    /**
-     * Send intent to load system Notification Settings UI for a particular channel.
-     *
-     * @param channel Name of channel to configure
-     */
-    public void goToNotificationSettings(String channel) {
-        Intent i = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
-        i.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
-        i.putExtra(Settings.EXTRA_CHANNEL_ID, channel);
-        startActivity(i);
+        final String content = String.format( "waiting for %d seconds", offset);
+        nb = noti.getNotification1(title, content);
+        if(nb != null)noti.notify(NOTI_PRIMARY1, nb);
+        if(nb != null)recursiveNotify( offset);
     }
 
     /**
@@ -151,25 +117,13 @@ public class MainActivity extends Activity {
      * seperate.)
      */
     class MainUi implements View.OnClickListener {
-//        final TextView titlePrimary;
-//        final TextView titleSecondary;
         final TextView hour;
         final TextView minute;
 
         private MainUi(View root) {
-//            titlePrimary = (TextView) root.findViewById(R.id.hour);
             hour = (TextView) root.findViewById(R.id.hour);
             minute = (TextView) root.findViewById(R.id.minute);
             ((ImageButton) root.findViewById(R.id.main_primary_send1)).setOnClickListener(this);
-//            ((Button) root.findViewById(R.id.main_primary_send2)).setOnClickListener(this);
-//            ((ImageButton) root.findViewById(R.id.main_primary_config)).setOnClickListener(this);
-//
-//            titleSecondary = (TextView) root.findViewById(R.id.main_secondary_title);
-//            ((Button) root.findViewById(R.id.main_secondary_send1)).setOnClickListener(this);
-//            ((Button) root.findViewById(R.id.main_secondary_send2)).setOnClickListener(this);
-//            ((ImageButton) root.findViewById(R.id.main_secondary_config)).setOnClickListener(this);
-
-//            ((Button) root.findViewById(R.id.btnA)).setOnClickListener(this);
         }
 
         private String getHourText() {
@@ -192,27 +146,8 @@ public class MainActivity extends Activity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.main_primary_send1:
-                    sendNotification(NOTI_PRIMARY1, getCurrentTimeOffsetInSecond(getHourText(), getMinuteText()));
+                    sendNotification(getCurrentTimeOffsetInSecond(getHourText(), getMinuteText()));
                     break;
-//                case R.id.main_primary_send2:
-//                    sendNotification(NOTI_PRIMARY2, getCurrentTimeOffsetInSecond());
-//                    break;
-//                case R.id.main_primary_config:
-//                    goToNotificationSettings(NotificationHelper.PRIMARY_CHANNEL);
-//                    break;
-
-//                case R.id.main_secondary_send1:
-//                    sendNotification(NOTI_SECONDARY1, getTitleSecondaryText());
-//                    break;
-//                case R.id.main_secondary_send2:
-//                    sendNotification(NOTI_SECONDARY2, getTitleSecondaryText());
-//                    break;
-//                case R.id.main_secondary_config:
-//                    goToNotificationSettings(NotificationHelper.SECONDARY_CHANNEL);
-//                    break;
-//                case R.id.btnA:
-//                    goToNotificationSettings();
-//                    break;
                 default:
                     Log.e(TAG, "Unknown click event.");
                     break;

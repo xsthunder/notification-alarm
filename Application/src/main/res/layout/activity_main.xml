@@ -67,8 +67,7 @@ F
             android:layout_columnSpan="2"
             android:layout_gravity="fill_horizontal"
 
-            android:src="@android:drawable/ic_menu_preferences"
-            android:contentDescription="@string/main_primary_config" />
+            android:src="@android:drawable/ic_menu_preferences" />
 
 
 

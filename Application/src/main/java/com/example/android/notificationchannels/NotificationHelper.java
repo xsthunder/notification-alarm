@@ -71,21 +71,6 @@ class NotificationHelper extends ContextWrapper {
     }
 
     /**
-     * Build notification for secondary channel.
-     *
-     * @param title Title for notification.
-     * @param body Message for notification.
-     * @return A Notification.Builder configured with the selected channel and details
-     */
-    public Notification.Builder getNotification2(String title, String body) {
-        return new Notification.Builder(getApplicationContext(), SECONDARY_CHANNEL)
-                 .setContentTitle(title)
-                 .setContentText(body)
-                 .setSmallIcon(getSmallIcon())
-                 .setAutoCancel(true);
-    }
-
-    /**
      * Send a notification.
      *
      * @param id The ID of the notification
