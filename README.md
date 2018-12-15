@@ -16,6 +16,9 @@ see [release](https://github.com/xsthunder/notification-alarm/releases) compatib
 
 Usage
 ---------
+
+![](screen-shot.png)
+
 1. 设置后台常驻和app alert。
 2. 两个框设置多少小时，多少分钟后开始闹铃。
 3. 点一下按钮设置闹铃。
