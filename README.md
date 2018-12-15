@@ -1,42 +1,15 @@
-
-Android NotificationChannels Sample
+Notification Alarm
 ===================================
-
-Demonstration of using channels to categorize notifications by topic. This feature was
-            added in Android O, and allows users to have fine-grained control over their
-            notification preferences.
 
 Introduction
 ------------
 
-Android O introduces notification channels to provide a unified system to help users
-manage notifications. When you target Android O, you must implement one or more
-notification channels to display notifications to your users.
+forked from [Android NotificationChannels Sample](https://github.com/googlesamples/android-NotificationChannels/)
 
-You can create a notification channel for each distinct type of notification you need
-to send. You can also create notification channels to reflect choices made by users of
-your app. For example, you might setup separate notification channels for each
-conversation group created by a user in a messaging app.
+push notification after a period of time.
 
-To create a channel, call `[NotificationManager.createNotificationChannels()][1]`. You
-can then use `[Notification.Builder.setChannel()][2]` to assign your notification to that
-channel.
+replace Mi Band Alarm
 
-Users can now manage most of the settings associated with notifications using a
-consistent system UI. All notifications posted to a notification channel behave the
-same. To access the settings screen, use the `ACTION_CHANNEL_NOTIFICATION_SETTINGS`
-intent:
-
-```
-Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
-intent.putExtra(Settings.EXTRA_CHANNEL_ID, mChannel.getId());
-intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
-startActivity(intent);
-```
-
-
-[1]: https://developer.android.com/reference/android/app/NotificationManager.html#createNotificationChannels(java.util.List<android.app.NotificationChannel>)
-[2]: https://android-dot-devsite.googleplex.com/reference/android/app/Notification.Builder.html#setChannel(java.lang.String)
 
 Pre-requisites
 --------------
@@ -45,10 +18,6 @@ Pre-requisites
 - Android Build Tools v27.0.2
 - Android Support Repository
 
-Screenshots
--------------
-
-<img src="screenshots/1-main.png" height="400" alt="Screenshot"/> 
 
 Getting Started
 ---------------
