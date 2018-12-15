@@ -6,7 +6,7 @@ Introduction
 
 forked from [Android NotificationChannels Sample](https://github.com/googlesamples/android-NotificationChannels/)
 
-push notification after a period of time.
+repeatedly push notification after a period of time.
 
 replace Mi Band Alarm
 
@@ -14,6 +14,7 @@ replace Mi Band Alarm
 Pre-requisites
 --------------
 
+- Connection with the real Internet
 - Android SDK 27
 - Android Build Tools v27.0.2
 - Android Support Repository

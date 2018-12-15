@@ -18,12 +18,6 @@ F
         android:columnCount="2"
         android:orientation="horizontal">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_columnSpan="2"
-            android:layout_gravity="fill_horizontal" />
-
         <EditText
             android:id="@+id/hour"
             android:layout_width="wrap_content"
@@ -46,19 +40,6 @@ F
             android:inputType="number"
             android:text="@string/minute" />
 
-        <!--<Button-->
-            <!--android:id="@+id/main_primary_send1"-->
-            <!--android:layout_columnWeight="1"-->
-            <!--android:layout_height="wrap_content"-->
-
-            <!--android:text="@string/main_primary_send1" />-->
-
-        <!--<Button-->
-            <!--android:id="@+id/main_primary_send2"-->
-            <!--android:layout_columnWeight="1"-->
-            <!--android:layout_height="wrap_content"-->
-
-            <!--android:text="@string/main_primary_send2" />-->
 
         <ImageButton
             android:id="@+id/main_primary_send1"
@@ -69,58 +50,15 @@ F
 
             android:src="@android:drawable/ic_menu_preferences" />
 
-
-
-        <!--<EditText-->
-            <!--android:id="@+id/main_secondary_title"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_columnSpan="2"-->
-            <!--android:layout_gravity="fill_horizontal"-->
-            <!--android:hint="@string/main_secondary_title"-->
-            <!--android:text="@string/main_secondary_title" />-->
-
-        <!--<Button-->
-            <!--android:id="@+id/main_secondary_send1"-->
-            <!--android:layout_columnWeight="1"-->
-            <!--android:layout_height="wrap_content"-->
-
-            <!--android:text="@string/main_secondary_send1" />-->
-
-        <!--<Button-->
-            <!--android:id="@+id/main_secondary_send2"-->
-            <!--android:layout_columnWeight="1"-->
-            <!--android:layout_height="wrap_content"-->
-
-            <!--android:text="@string/main_secondary_send2"/>-->
-
-
-        <!--<ImageButton-->
-            <!--android:id="@+id/main_secondary_config"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_columnSpan="2"-->
-            <!--android:layout_gravity="fill_horizontal"-->
-
-            <!--android:src="@android:drawable/ic_menu_preferences"-->
-            <!--android:contentDescription="@string/main_secondary_config" />-->
-
+        <EditText
+            android:id="@+id/log"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:layout_columnSpan="2"
+            android:layout_marginBottom="0dp"
+            android:editable="false"
+            android:ems="10"
+            android:inputType="none" />
     </GridLayout>
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/main_footer"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_alignParentBottom="true">-->
-
-        <!--<Button-->
-            <!--android:text="@string/btnA_title"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/btnA"-->
-            <!--android:layout_weight="1" />-->
-    <!--</LinearLayout>-->
-
 
 </RelativeLayout>

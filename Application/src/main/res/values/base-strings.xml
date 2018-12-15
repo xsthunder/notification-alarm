@@ -16,13 +16,12 @@
 -->
 
 <resources>
-    <string name="app_name">NotificationChannels</string>
+    <string name="app_name">NotificationAlarm</string>
     <string name="intro_message">
         <![CDATA[
         
             
-Demonstration of using channels to categorize notifications by topic. This feature was added in
-Android O, and allows users to have fine-grained control over their notificatin preferences.
+repeatedly push notification after a period of time.replace Mi Band Alarm
             
         
         ]]>
