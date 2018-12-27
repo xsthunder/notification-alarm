@@ -10,6 +10,8 @@ repeatedly push notification after a period of time.replace Mi Band Alarm
 
 mi band3，闹铃只震15下，能不能醒全靠运气。通过设定一段时间后重复发通知的方式来使手环震动，目前是规定时间过后每8秒发一次通知。
 
+api level > 27
+
 Download
 ----------
 see [release](https://github.com/xsthunder/notification-alarm/releases) compatible with Android 8.0 or 8.1
